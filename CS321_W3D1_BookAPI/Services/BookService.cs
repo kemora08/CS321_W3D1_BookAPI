@@ -10,6 +10,7 @@ namespace CS321_W3D1_BookAPI.Services
     public class BookService : IBookService
     {
         private readonly BookContext _bookContext;
+       
 
         public BookService(BookContext myContext)
         {
@@ -17,17 +18,26 @@ namespace CS321_W3D1_BookAPI.Services
         }
         public Book Add(Book newBook)
         {
-            throw new NotImplementedException();
+            _bookContext.Add(newBook);
+            _bookContext.SaveChanges();
+            return newBook;
         }
 
         public void Delete(Book deletebook)
         {
-            throw new NotImplementedException();
+            // make sure the book exists
+            var currentBook = _bookContext.Books.FirstOrDefault(b => b.Id == deletebook.Id);
+            if(currentBook != null)
+            {
+                _bookContext.Remove(deletebook);
+                _bookContext.SaveChanges();
+            }
+         
         }
 
         public Book Get(int id)
         {
-            throw new NotImplementedException();
+           return _bookContext.Books.FirstOrDefault(b => b.Id == id);
         }
 
         public IEnumerable<Book> GetAll()
@@ -37,7 +47,15 @@ namespace CS321_W3D1_BookAPI.Services
 
         public Book Update(Book updateBook)
         {
-            throw new NotImplementedException();
+            var currentBook = _bookContext.Books.FirstOrDefault(b => b.Id == updateBook.Id);
+            if (currentBook != null)
+            {
+                _bookContext.Entry(currentBook).CurrentValues.SetValues(updateBook);
+                _bookContext.Books.Update(currentBook);
+                _bookContext.SaveChanges();
+                return currentBook;
+            }
+            return null;
         }
     }
 }
