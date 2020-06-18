@@ -42,7 +42,7 @@ namespace CS321_W3D1_BookAPI.Services
 
         public IEnumerable<Author> GetAll()
         {
-            
+            return _bookContext.Authors.ToList();
         }
 
         public Author Update(Author updateAuthor)

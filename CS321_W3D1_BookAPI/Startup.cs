@@ -35,6 +35,7 @@ namespace CS321_W3D1_BookAPI
         }   );
             services.AddDbContext<BookContext>();
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IAuthorService, AuthorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
