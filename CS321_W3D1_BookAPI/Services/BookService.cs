@@ -42,7 +42,7 @@ namespace CS321_W3D1_BookAPI.Services
 
         public IEnumerable<Book> GetAll()
         {
-            throw new NotImplementedException();
+            return _bookContext.Books.ToList();
         }
 
         public Book Update(Book updateBook)

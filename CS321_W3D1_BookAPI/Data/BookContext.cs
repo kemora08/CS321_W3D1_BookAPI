@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace CS321_W3D1_BookAPI.Data
 {
-    public class BookContext: DbContext
+    public class BookContext : DbContext
     {
-       public DbSet<Book> Books { get; set; }
-
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder myBuilder)
         {
             myBuilder.UseSqlite("Data Source=Books.db");
@@ -21,10 +21,11 @@ namespace CS321_W3D1_BookAPI.Data
             base.OnModelCreating(myModelBuilder);
 
             myModelBuilder.Entity<Book>().HasData(
-                new Book { Id = 1, Title = "Test Title 1", Author="Author 1", Category="Fantasy"},
-                new Book { Id = 2, Title = "Test Title 2", Author="Author 2", Category="Fantasy"},
-                new Book { Id = 3, Title = "Test Title 3", Author="Author 3", Category="Fantasy"}
-                );
+            new Book { Id = 1, Title = "The Grapes of Wrath", AuthorId = 1 },
+            new Book { Id = 2, Title = "Cannery Row", AuthorId = 1 },
+            new Book { Id = 3, Title = "The Shining", AuthorId = 2 }
+        );
+
         }
     }
 }
